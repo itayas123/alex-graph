@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "alex-graph",
+  "private_key_id": "726c372311a6bb2a2e792a974466e278f092f61c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCQ6LXGEqQgL0Xv\noJzL6H+nJ+f9l1Ro8t0Xet5NhJ9yZglCP9fffR2jrMZxBZ2cGfGeDlnChbhXTQdr\nXFN9jGezrQb/anCIt9qSFRWHo12B7u4L3GUIJJINWYTcHehCOc6Ckac8Jo/VeMqo\nPD4Ws/osjurfGUhRQroLQHe/BhQkHzd77RS7eoEulmqkYaELYpvCIfk12xKhF6+a\n+i+fu/SATqU6yWbx/KmLol4GSGrWRUj79anvpDN4Fpj6R/e//GvBCY8Seusmsed/\nU0sutBKDkK3fWTdlshCdGjFWF7SCWaIJwiDd67s90heTTabNSymtLElI0LxxQKsC\nfv7TjyovAgMBAAECggEAFwBBHhQGZi9qv+r0CG+6l2s/qSJ0nQXzrw7rK03CS1PD\n43ajys8evcSmaPk1t7nsfqSTfctg48aPx2xLulFngn8T7cXU3/ai5G4hUTrOlFm7\nAjn09XJsll7ftlqu65gmXdZFv8f1K7K1JDgPuOXPb3Qt9sSaFH/tbOzKNRF/b+4h\nZ6xCixrbzxU4klQGV9V2gAEmD4AjVKZYt81t97TDvgaIyDII+YEB+2u51aeGGCjz\n8gNqc+zv3TRrY/1I9XqT1aqFnJfCWs6JT1YeSAQSTuRhAUcVc8JVzYt3AdvKRqZO\n3eSqEL9+Yrr/6P/4RWSHZBZwNcgQqkFONrKv95q5XQKBgQDDKEa73s9LP2B1P0rr\nYCUMStdaENz2qGMN8OHngmhnld2RP/lwYUCK1lEySEdcHHmc3hFCHQqY4AJ0mkk2\n7iFgU6M0WsZF2vVVc54gkQp+8cIDXdojhLA6gfo8Huww1Lvmro8Sab+wOgakjd97\npskhO2rW/PjnWjJLsCMLKAa6nQKBgQC+Fg9/gI7WjK+fvYuJ9CN0L+udffNx+Xn3\nPX1YnKNDBMqpR5xXMYiWi7v4PM7SzzqyAvXnWlLuQB4R1YBDBZ7qfm7f7QNPpzy+\n/FpnYrnyMaD+Tz3ehGUJHK5ShtLRi0WE0RP5yLRAzjwrZTaeSglgyhubtWYNQ/5m\nzYtYeb5IOwKBgD9Fz6kZlBvRcHSTELc/dMOHgEqzLPDLp1Hdx2BH55GuBSgSlczZ\nuxNIaQrkZD54/PTfCrlksQrflew4GYS1sByLAV74D1CWrPQHiD0GyWBfAYgV5aOe\nYYSWn4ree7VZQ5KHBdvybTO1nHG9jbeJW6xqlzkcy5Y2qBfiA3qaf5QBAoGASr0R\nyugZQXJ/eydjvhIn/n74/SuQlLeqpPOgXT75UliH9pcZeY8YTVkTxz7hczHXujY/\nyX9SLCs5p3lyvOdw3HJp1dGzA5aV4+IFCbFfu0KYMmWlxd/4eeS1Be3M5mcEJnyu\nhf/MH873CXj6SLKDjXLp+AcS4RRi6rjWmSsFDhECgYEAiZmy8S6J4afLTZC3gbSy\nSTjtPY01lZX8GfTMQoSViXqB8auFMagP1dYvsrP9ouyUuSWSe8P/42R3NaBJW3zx\nlkm8hpzg/6k3RSQlhsv1sC3AuC2C+C6R7/wAOcAQibN2RL4eCJ52hsw0gSUblcd/\ngtm2h0Wc3h/A+kdEGzndwIA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "alex-graph-admin@alex-graph.iam.gserviceaccount.com",
+  "client_id": "112700301495219825535",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/alex-graph-admin%40alex-graph.iam.gserviceaccount.com"
+}
