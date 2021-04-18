@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactTable, { TableProps } from "react-table-6";
 import "react-table-6/react-table.css";
 import "./dataTable.css";

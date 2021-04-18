@@ -30,11 +30,17 @@ function App() {
         <>
           <Table
             googleSheetsService={googleSheetsService}
+            title={SheetsTitles.TOTAL}
+            isHorizontal
+          />
+          <Table
+            googleSheetsService={googleSheetsService}
             title={SheetsTitles.CLOSE}
           />
           <Table
             googleSheetsService={googleSheetsService}
             title={SheetsTitles.OPEN}
+            offset={3}
           />
         </>
       )}

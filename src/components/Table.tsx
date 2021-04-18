@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Column } from "react-table-6";
-import { GoogleSpreadsheetRow, PaginationOptions } from "google-spreadsheet";
+import { GoogleSpreadsheetRow } from "google-spreadsheet";
 import GoogleSheetsService from "../services/GoogleSheets.service";
 import DataTable from "./DataTable/DataTable";
 import Loader from "./Loader/Loader";
@@ -21,43 +21,43 @@ export interface TableProps {
   googleSheetsService: GoogleSheetsService;
   title: SheetsTitles;
   isHorizontal?: boolean;
-  options?: PaginationOptions;
+  offset?: number;
 }
 
 const Table: React.SFC<TableProps> = ({
   googleSheetsService,
   title,
   isHorizontal,
-  options,
+  offset,
 }: TableProps) => {
-  const [data, setData] = useState<Object[]>([]);
+  const [data, setData] = useState<GoogleSpreadsheetRow[]>([]);
   const [columns, setColumns] = useState<Column[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const initSheets = async () => {
-      let sheetData: Object[] = [];
-      let sheetColumns: Column[] = [];
       if (isHorizontal) {
-        // sheetData = await googleSheetsService.getHorizontalRowsByTitle(
-        //   title,
-        //   options
-        //   );
+        const {
+          sheetColumns,
+          sheetData,
+        } = await googleSheetsService.getHorizontalRowsandColumnByTitle(title);
+        setColumns(sheetColumns);
+        setData(sheetData);
       } else {
-        sheetColumns = await googleSheetsService.getCellsByTitle(
+        const sheetColumns = await googleSheetsService.getCellsByTitle(
           title,
-          options?.offset
+          offset
         );
-        sheetData = await googleSheetsService.getRowsByTitle(title);
-        console.log(sheetColumns, sheetData);
+        const sheetData = await googleSheetsService.getRowsByTitle(title);
+        setColumns(sheetColumns);
+        setData(sheetData);
       }
-      setColumns(sheetColumns);
-      setData(sheetData);
+
       setIsLoading(false);
     };
 
     initSheets();
-  }, []);
+  }, [googleSheetsService, title, isHorizontal]);
 
   return isLoading ? (
     <Loader />

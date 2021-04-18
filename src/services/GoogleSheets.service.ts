@@ -1,8 +1,5 @@
-import {
-  GoogleSpreadsheet,
-  GoogleSpreadsheetRow,
-  PaginationOptions,
-} from "google-spreadsheet";
+import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
+import { Column } from "react-table-6";
 import { SheetsColumns, SheetsTitles } from "../components/Table";
 
 class GoogleSheetsService {
@@ -26,11 +23,10 @@ class GoogleSheetsService {
   }
 
   async getRowsByTitle(
-    sheetTitle: string,
-    options?: PaginationOptions
+    sheetTitle: SheetsTitles
   ): Promise<GoogleSpreadsheetRow[]> {
     const sheet = this._doc.sheetsByTitle[sheetTitle];
-    return await sheet.getRows(options);
+    return await sheet.getRows();
   }
 
   async getCellsByTitle(
@@ -51,20 +47,36 @@ class GoogleSheetsService {
     return cells;
   }
 
-  async getHorizontalRowsByTitle(
-    sheetTitle: string,
-    options?: PaginationOptions
-  ): Promise<{ [key: string]: string }> {
-    const rows = await this.getRowsByTitle(sheetTitle, options);
-    const cells = await this.getCellsByTitle(sheetTitle as SheetsTitles);
-    console.log(rows[0], cells);
-    const firstCell = cells[0].Header;
-    const secondCell = cells[1].Header;
-    const data: { [key: string]: string } = { [firstCell]: secondCell };
-    rows.forEach((row: GoogleSpreadsheetRow) => {
-      data[row[firstCell]] = row[secondCell];
+  async getHorizontalRowsandColumnByTitle(
+    sheetTitle: SheetsTitles,
+    offset?: number
+  ): Promise<{
+    sheetColumns: Column<any>[];
+    sheetData: any[];
+  }> {
+    const sheetColumns: Column[] = await this.getCellsByTitle(
+      sheetTitle,
+      offset
+    );
+    const sheetData: any[] = await this.getRowsByTitle(sheetTitle);
+    sheetData.unshift({
+      [sheetColumns[0].accessor?.toString() || ""]: sheetColumns[0].Header,
+      [sheetColumns[1].accessor?.toString() || ""]: sheetColumns[1].Header,
     });
-    return data;
+    sheetColumns.forEach((column) => {
+      if (parseFloat(column.accessor?.toString().replace(/,/g, "") || "")) {
+        column.accessor = "some accessor";
+      }
+    });
+    sheetData.forEach((data) => {
+      const unvalidKey = Object.keys(data).find((key) =>
+        parseFloat(key.replace(/,/g, ""))
+      );
+      if (unvalidKey) {
+        data["some accessor"] = data[unvalidKey];
+      }
+    });
+    return { sheetColumns, sheetData };
   }
 }
 
