@@ -71,7 +71,7 @@ const Table: React.SFC<TableProps> = ({
     };
 
     initSheets();
-  }, [googleSheetsService, title, isHorizontal]);
+  }, [googleSheetsService, title, isHorizontal, offset]);
 
   return isLoading ? (
     <Loader />
