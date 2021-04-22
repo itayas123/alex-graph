@@ -23,8 +23,6 @@ function App() {
     initSheets();
   }, []);
 
-  const lineType: Chart.ChartType = "line";
-
   return (
     <div className="App">
       {isLoading ? (
