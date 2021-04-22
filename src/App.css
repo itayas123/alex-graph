@@ -5,7 +5,7 @@
 .total-div {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 .total-div .ReactTable {
   width: 37%;
@@ -14,5 +14,6 @@
   max-height: 400px !important;
 }
 .total-div .chart-div {
+  margin-top: 15px;
   width: 58%;
 }

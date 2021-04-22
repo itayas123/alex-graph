@@ -42,13 +42,13 @@ function App() {
           <div>
             <Table
               googleSheetsService={googleSheetsService}
-              title={SheetsTitles.CLOSE}
+              title={SheetsTitles.OPEN}
+              offset={3}
             />
             <br />
             <Table
               googleSheetsService={googleSheetsService}
-              title={SheetsTitles.OPEN}
-              offset={3}
+              title={SheetsTitles.CLOSE}
             />
           </div>
         </div>

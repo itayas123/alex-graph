@@ -43,15 +43,14 @@ const TotalChart: React.SFC<ChartProps> = ({
       });
 
       const chartData: ChartData = {
-        labels: [startDate, ...dates.map((date) => date)],
+        labels: [startDate, ...dates],
         datasets: [
           {
-            label: "Portfolio PNL$",
+            label: "Portfolio Perfomance",
             data: [0, ...profits],
-            type,
             fill: true,
-            backgroundColor: "rgb(255, 99, 132)",
-            borderColor: "rgba(255, 99, 132, 0.2)",
+            backgroundColor: "#37b373",
+            borderColor: "#37b373",
           },
         ],
       };
