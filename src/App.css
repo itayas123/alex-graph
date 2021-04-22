@@ -1,7 +1,17 @@
 .App {
   text-align: center;
 }
-
+@media only screen and (max-width: 750px) {
+  .total-div {
+    flex-direction: column;
+  }
+  .total-div .ReactTable {
+    width: 100% !important;
+  }
+  .total-div .chart-div {
+    width: 100% !important;
+  }
+}
 .total-div {
   display: flex;
   justify-content: space-between;
