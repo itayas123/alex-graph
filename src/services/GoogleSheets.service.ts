@@ -23,10 +23,25 @@ class GoogleSheetsService {
   }
 
   async getRowsByTitle(
-    sheetTitle: SheetsTitles
+    sheetTitle: SheetsTitles,
+    offset?: number
   ): Promise<GoogleSpreadsheetRow[]> {
     const sheet = this._doc.sheetsByTitle[sheetTitle];
-    return await sheet.getRows();
+    return await sheet.getRows(
+      offset ? { offset, limit: 99999999 } : undefined
+    );
+  }
+
+  getCellByTitleAndIndex(
+    sheetTitle: SheetsTitles,
+    rowIndex: number,
+    cellIndex: number
+  ) {
+    const sheet = this._doc.sheetsByTitle[sheetTitle];
+    if (!sheet.cellStats.loaded) {
+      throw new Error("not loaded");
+    }
+    return sheet.getCell(rowIndex, cellIndex).formattedValue;
   }
 
   async getCellsByTitle(
@@ -35,7 +50,10 @@ class GoogleSheetsService {
   ): Promise<{ Header: string; accessor: string }[]> {
     const cells: { Header: string; accessor: string }[] = [];
     const sheet = this._doc.sheetsByTitle[sheetTitle];
-    await sheet.loadCells();
+    console.log(sheet.cellStats);
+    if (!sheet.cellStats.loaded) {
+      await sheet.loadCells();
+    }
     const columnsCount: number = SheetsColumns[sheetTitle];
     for (let cellIndex = 0; cellIndex < columnsCount; cellIndex++) {
       const cell = sheet.getCell(rowIndex, cellIndex);

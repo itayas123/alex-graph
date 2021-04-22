@@ -4,12 +4,11 @@ import "react-table-6/react-table.css";
 import "./dataTable.css";
 
 const DataTable = (props: Partial<TableProps<any>>) => {
-  const { data, columns } = props;
+  const { data, columns, className } = props;
   return (
     <ReactTable
       data={data}
       columns={columns}
-      className="-striped -highlight"
       defaultSortMethod={(a: string, b: string) => {
         if (a === b) {
           return 0;
@@ -31,6 +30,7 @@ const DataTable = (props: Partial<TableProps<any>>) => {
           : false
       }
       {...props}
+      className={`-striped -highlight ${className}`}
     />
   );
 };

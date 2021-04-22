@@ -48,7 +48,21 @@ const Table: React.SFC<TableProps> = ({
           title,
           offset
         );
-        const sheetData = await googleSheetsService.getRowsByTitle(title);
+        const sheetData = await googleSheetsService.getRowsByTitle(
+          title,
+          offset
+        );
+        if (offset) {
+          sheetData.forEach((data, index) => {
+            sheetColumns.forEach((column, columnIndex) => {
+              data[column.Header] = googleSheetsService.getCellByTitleAndIndex(
+                title,
+                offset + index + 1,
+                columnIndex
+              );
+            });
+          });
+        }
         setColumns(sheetColumns);
         setData(sheetData);
       }
@@ -67,6 +81,7 @@ const Table: React.SFC<TableProps> = ({
       data={data}
       showPagination={false}
       defaultPageSize={data.length}
+      className={isHorizontal ? "is-horizontal" : ""}
     />
   );
 };
