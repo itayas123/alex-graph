@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
-import { ChartData, ChartOptions, ChartType } from "chart.js";
+import { ChartData, ChartType } from "chart.js";
 import GoogleSheetsService from "../services/GoogleSheets.service";
 import { SheetsTitles } from "./Table";
 import Loader from "./Loader/Loader";
@@ -16,7 +16,6 @@ const TotalChart: React.SFC<ChartProps> = ({
   type = "line",
   googleSheetsService,
 }: ChartProps) => {
-  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<ChartData>();
   useEffect(() => {
     const initData = async () => {
@@ -59,7 +58,7 @@ const TotalChart: React.SFC<ChartProps> = ({
     };
 
     initData();
-  }, []);
+  }, [googleSheetsService]);
 
   return (
     <div className="chart-div">
