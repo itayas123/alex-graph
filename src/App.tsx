@@ -31,22 +31,25 @@ function App() {
         <div>
           <div className="total-div">
             <Table
+              title=""
               googleSheetsService={googleSheetsService}
-              title={SheetsTitles.TOTAL}
+              sheetName={SheetsTitles.TOTAL}
               isHorizontal
             />
             <TotalChart googleSheetsService={googleSheetsService} />
           </div>
           <div>
             <Table
+              title="Open Positions"
               googleSheetsService={googleSheetsService}
-              title={SheetsTitles.OPEN}
+              sheetName={SheetsTitles.OPEN}
               offset={3}
             />
             <br />
             <Table
+              title="Close Positions"
               googleSheetsService={googleSheetsService}
-              title={SheetsTitles.CLOSE}
+              sheetName={SheetsTitles.CLOSE}
             />
           </div>
         </div>

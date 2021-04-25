@@ -34,9 +34,13 @@ const TotalChart: React.SFC<ChartProps> = ({
       const profits: number[] = [];
       dates.forEach((date, index) => {
         profits[index] = rows
-          .filter((row) => row[EXIT_DATE] === date)
+          .filter((row) => {
+            return new Date(row[EXIT_DATE]) <= new Date(date);
+          })
           .reduce((a, b) => {
             const PnL = b["$ PnL"];
+            console.log(a, date, b[EXIT_DATE], b["$ PnL"]);
+
             return a + parseFloat(PnL.replace(/,/g, ""));
           }, 0);
       });
@@ -47,7 +51,7 @@ const TotalChart: React.SFC<ChartProps> = ({
           {
             label: "Portfolio Perfomance",
             data: [0, ...profits],
-            fill: true,
+            fill: false,
             backgroundColor: "#37b373",
             borderColor: "#37b373",
           },

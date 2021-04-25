@@ -19,13 +19,15 @@ export const SheetsColumns = {
 
 export interface TableProps {
   googleSheetsService: GoogleSheetsService;
-  title: SheetsTitles;
+  sheetName: SheetsTitles;
+  title: string;
   isHorizontal?: boolean;
   offset?: number;
 }
 
 const Table: React.SFC<TableProps> = ({
   googleSheetsService,
+  sheetName,
   title,
   isHorizontal,
   offset,
@@ -40,23 +42,25 @@ const Table: React.SFC<TableProps> = ({
         const {
           sheetColumns,
           sheetData,
-        } = await googleSheetsService.getHorizontalRowsandColumnByTitle(title);
+        } = await googleSheetsService.getHorizontalRowsandColumnByTitle(
+          sheetName
+        );
         setColumns(sheetColumns);
         setData(sheetData);
       } else {
         const sheetColumns = await googleSheetsService.getCellsByTitle(
-          title,
+          sheetName,
           offset
         );
         const sheetData = await googleSheetsService.getRowsByTitle(
-          title,
+          sheetName,
           offset
         );
         if (offset) {
           sheetData.forEach((data, index) => {
             sheetColumns.forEach((column, columnIndex) => {
               data[column.Header] = googleSheetsService.getCellByTitleAndIndex(
-                title,
+                sheetName,
                 offset + index + 1,
                 columnIndex
               );
@@ -71,18 +75,21 @@ const Table: React.SFC<TableProps> = ({
     };
 
     initSheets();
-  }, [googleSheetsService, title, isHorizontal, offset]);
+  }, [googleSheetsService, sheetName, isHorizontal, offset]);
 
   return isLoading ? (
     <Loader />
   ) : (
-    <DataTable
-      columns={columns as any}
-      data={data}
-      showPagination={false}
-      defaultPageSize={data.length}
-      className={isHorizontal ? "is-horizontal" : ""}
-    />
+    <>
+      {title && <h3>{title}</h3>}
+      <DataTable
+        columns={columns as any}
+        data={data}
+        showPagination={false}
+        defaultPageSize={data.length}
+        className={isHorizontal ? "is-horizontal" : ""}
+      />
+    </>
   );
 };
 

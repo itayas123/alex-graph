@@ -5,6 +5,9 @@
 .ReactTable.is-horizontal .rt-thead.-header {
   display: none;
 }
+.ReactTable .rt-thead.-header {
+  background-color: #e6fff2;
+}
 .ReactTable .rt-thead .rt-resizable-header-content,
 .ReactTable .rt-tbody .rt-td {
   text-align: start;
