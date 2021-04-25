@@ -52,8 +52,8 @@ const TotalChart: React.SFC<ChartProps> = ({
             label: "Portfolio Perfomance",
             data: [0, ...profits],
             fill: false,
-            backgroundColor: "#37b373",
-            borderColor: "#37b373",
+            backgroundColor: "rgb(55, 179, 115)",
+            borderColor: "rgba(55, 179, 115, 0.2)",
           },
         ],
       };
