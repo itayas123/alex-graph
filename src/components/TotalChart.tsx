@@ -29,7 +29,6 @@ const TotalChart: React.SFC<ChartProps> = ({
       const dates: Date[] = Array.from(
         new Set(rows.map((row) => row[EXIT_DATE]))
       );
-      console.log(dates);
 
       const profits: number[] = [];
       dates.forEach((date, index) => {

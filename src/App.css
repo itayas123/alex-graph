@@ -17,13 +17,18 @@
   justify-content: space-between;
   margin-bottom: 25px;
 }
+.total-div > div {
+  display: inline;
+  width: 100%;
+}
 .total-div .ReactTable {
-  width: 37%;
+  width: 90%;
+  margin: auto;
 }
 .total-div .ReactTable .rt-tbody {
   max-height: 400px !important;
 }
 .total-div .chart-div {
-  margin-top: 15px;
+  margin-top: 30px;
   width: 58%;
 }

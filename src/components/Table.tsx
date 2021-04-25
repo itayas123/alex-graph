@@ -80,7 +80,7 @@ const Table: React.SFC<TableProps> = ({
   return isLoading ? (
     <Loader />
   ) : (
-    <>
+    <div>
       {title && <h3>{title}</h3>}
       <DataTable
         columns={columns as any}
@@ -89,7 +89,7 @@ const Table: React.SFC<TableProps> = ({
         defaultPageSize={data.length}
         className={isHorizontal ? "is-horizontal" : ""}
       />
-    </>
+    </div>
   );
 };
 

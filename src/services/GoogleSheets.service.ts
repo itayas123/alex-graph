@@ -7,8 +7,8 @@ class GoogleSheetsService {
 
   constructor() {
     this._doc = new GoogleSpreadsheet(
-      // "1tXEsG0qk4boX7j0V7U_Dun_v5uXDsk8iOfpK2xQagxI" ||
-      "1LbIprnwWJTQYWJy8uh7E1rr1MOaSbuiHPYzjL9h0eEQ"
+      "1tXEsG0qk4boX7j0V7U_Dun_v5uXDsk8iOfpK2xQagxI" ||
+        "1LbIprnwWJTQYWJy8uh7E1rr1MOaSbuiHPYzjL9h0eEQ"
     );
   }
 

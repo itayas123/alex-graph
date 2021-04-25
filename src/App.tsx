@@ -31,7 +31,7 @@ function App() {
         <div>
           <div className="total-div">
             <Table
-              title=""
+              title="Strategy Performance"
               googleSheetsService={googleSheetsService}
               sheetName={SheetsTitles.TOTAL}
               isHorizontal
