@@ -3,7 +3,6 @@ import { Column } from "react-table-6";
 import { GoogleSpreadsheetRow } from "google-spreadsheet";
 import GoogleSheetsService from "../services/GoogleSheets.service";
 import DataTable from "./DataTable/DataTable";
-import Loader from "./Loader/Loader";
 
 export enum SheetsTitles {
   TOTAL = "Таблица 1",
@@ -21,6 +20,8 @@ export interface TableProps {
   googleSheetsService: GoogleSheetsService;
   sheetName: SheetsTitles;
   title: string;
+  isLoading: boolean;
+  setIsLoading: () => any;
   isHorizontal?: boolean;
   offset?: number;
 }
@@ -29,12 +30,13 @@ const Table: React.SFC<TableProps> = ({
   googleSheetsService,
   sheetName,
   title,
+  isLoading,
+  setIsLoading,
   isHorizontal,
   offset,
 }: TableProps) => {
   const [data, setData] = useState<GoogleSpreadsheetRow[]>([]);
   const [columns, setColumns] = useState<Column[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const initSheets = async () => {
@@ -71,14 +73,14 @@ const Table: React.SFC<TableProps> = ({
         setData(sheetData);
       }
 
-      setIsLoading(false);
+      setIsLoading();
     };
 
     initSheets();
   }, [googleSheetsService, sheetName, isHorizontal, offset]);
 
   return isLoading ? (
-    <Loader />
+    <></>
   ) : (
     <div>
       {title && <h3>{title}</h3>}

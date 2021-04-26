@@ -8,7 +8,9 @@ import TotalChart from "./components/TotalChart";
 const googleSheetsService: GoogleSheetsService = new GoogleSheetsService();
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadingCount, setLoadingCount] = useState(0);
+  const isLoading = loadingCount < 4;
+  console.log(loadingCount);
 
   useEffect(() => {
     const initSheets = async () => {
@@ -17,7 +19,7 @@ function App() {
       } catch (err) {
         console.error(err);
       }
-      setIsLoading(false);
+      setLoadingCount((count) => count + 1);
     };
 
     initSheets();
@@ -25,22 +27,29 @@ function App() {
 
   return (
     <div className="App">
-      {isLoading ? (
-        <Loader />
-      ) : (
+      {isLoading && <Loader />}
+      {loadingCount > 0 ? (
         <div>
           <div className="total-div">
             <Table
               title="Strategy Performance"
+              isLoading={isLoading}
+              setIsLoading={() => setLoadingCount((count) => count + 1)}
               googleSheetsService={googleSheetsService}
               sheetName={SheetsTitles.TOTAL}
               isHorizontal
             />
-            <TotalChart googleSheetsService={googleSheetsService} />
+            <TotalChart
+              googleSheetsService={googleSheetsService}
+              isLoading={loadingCount < 3}
+              setIsLoading={() => setLoadingCount((count) => count + 1)}
+            />
           </div>
           <div>
             <Table
               title="Open Positions"
+              isLoading={isLoading}
+              setIsLoading={() => setLoadingCount((count) => count + 1)}
               googleSheetsService={googleSheetsService}
               sheetName={SheetsTitles.OPEN}
               offset={3}
@@ -48,11 +57,15 @@ function App() {
             <br />
             <Table
               title="Close Positions"
+              isLoading={isLoading}
+              setIsLoading={() => setLoadingCount((count) => count + 1)}
               googleSheetsService={googleSheetsService}
               sheetName={SheetsTitles.CLOSE}
             />
           </div>
         </div>
+      ) : (
+        <></>
       )}
     </div>
   );
