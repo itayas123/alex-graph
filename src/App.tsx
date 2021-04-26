@@ -9,7 +9,7 @@ const googleSheetsService: GoogleSheetsService = new GoogleSheetsService();
 
 function App() {
   const [loadingCount, setLoadingCount] = useState(0);
-  const isLoading = loadingCount < 4;
+  const isLoading = loadingCount < 5;
   console.log(loadingCount);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function App() {
             />
             <TotalChart
               googleSheetsService={googleSheetsService}
-              isLoading={loadingCount < 3}
+              isLoading={loadingCount < 4}
               setIsLoading={() => setLoadingCount((count) => count + 1)}
             />
           </div>
