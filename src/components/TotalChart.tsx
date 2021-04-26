@@ -1,20 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
-import { ChartData, ChartType } from "chart.js";
+import { ChartData, ChartType, ChartOptions, Tick } from "chart.js";
 import GoogleSheetsService from "../services/GoogleSheets.service";
 import { SheetsTitles } from "./Table";
-import Loader from "./Loader/Loader";
 
 export interface ChartProps {
   googleSheetsService: GoogleSheetsService;
+  isLoading: boolean;
+  setIsLoading: () => any;
   type?: ChartType;
 }
 
 const EXIT_DATE = "Exit Date";
 
+const getValueAsCurrency = (value: any, minimumFractionDigits: number = 2) =>
+  new Intl.NumberFormat("en-us", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits,
+  }).format(value);
+
+const options: ChartOptions = {
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label: function (context: any) {
+          let label = context.dataset.label || "";
+
+          if (label) {
+            label += ": ";
+          }
+          if (context.parsed.y !== null) {
+            label += getValueAsCurrency(context.parsed.y);
+          }
+          return label;
+        },
+      },
+    },
+  },
+  scales: {
+    yAxes: {
+      ticks: {
+        // Include a dollar sign in the ticks
+        callback: (ticketValue) => getValueAsCurrency(ticketValue, 0),
+      },
+    },
+  },
+};
+
 const TotalChart: React.SFC<ChartProps> = ({
-  type = "line",
   googleSheetsService,
+  isLoading,
+  setIsLoading,
+  type = "line",
 }: ChartProps) => {
   const [data, setData] = useState<ChartData>();
   useEffect(() => {
@@ -28,7 +66,7 @@ const TotalChart: React.SFC<ChartProps> = ({
 
       const dates: Date[] = Array.from(
         new Set(rows.map((row) => row[EXIT_DATE]))
-      );
+      ).sort((a, b) => new Date(a).getDate() - new Date(b).getDate());
 
       const profits: number[] = [];
       dates.forEach((date, index) => {
@@ -38,8 +76,6 @@ const TotalChart: React.SFC<ChartProps> = ({
           })
           .reduce((a, b) => {
             const PnL = b["$ PnL"];
-            console.log(a, date, b[EXIT_DATE], b["$ PnL"]);
-
             return a + parseFloat(PnL.replace(/,/g, ""));
           }, 0);
       });
@@ -48,7 +84,7 @@ const TotalChart: React.SFC<ChartProps> = ({
         labels: [startDate, ...dates],
         datasets: [
           {
-            label: "Portfolio Perfomance",
+            label: "Portfolio Performance",
             data: [0, ...profits],
             fill: false,
             backgroundColor: "rgb(55, 179, 115)",
@@ -56,8 +92,8 @@ const TotalChart: React.SFC<ChartProps> = ({
           },
         ],
       };
-      console.log(chartData);
       setData(chartData);
+      setIsLoading();
     };
 
     initData();
@@ -65,7 +101,7 @@ const TotalChart: React.SFC<ChartProps> = ({
 
   return (
     <div className="chart-div">
-      {data ? <Line data={data} type={type} /> : <Loader />}
+      {isLoading ? <></> : <Line data={data} options={options} type={type} />}
     </div>
   );
 };
