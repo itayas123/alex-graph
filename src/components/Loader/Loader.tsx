@@ -7,10 +7,10 @@ export interface LoaderProps {
 }
 
 const Loader: React.SFC<LoaderProps> = ({
-  color = "#000000",
+  color = "rgb(55, 179, 115)",
   type = "spinningBubbles",
 }: LoaderProps) => {
-  return <ReactLoading color={color} type={type} />;
+  return <ReactLoading className="loader" color={color} type={type} />;
 };
 
 export default Loader;

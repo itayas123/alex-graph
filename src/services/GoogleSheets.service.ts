@@ -27,10 +27,15 @@ class GoogleSheetsService {
     sheetTitle: SheetsTitles,
     offset?: number
   ): Promise<GoogleSpreadsheetRow[]> {
-    const sheet = this._doc.sheetsByTitle[sheetTitle];
-    return await sheet.getRows(
-      offset ? { offset, limit: 99999999 } : undefined
-    );
+    try {
+      const sheet = this._doc.sheetsByTitle[sheetTitle];
+      return await sheet.getRows(
+        offset ? { offset, limit: 99999999 } : undefined
+      );
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
   }
 
   getCellByTitleAndIndex(
@@ -49,21 +54,26 @@ class GoogleSheetsService {
     sheetTitle: SheetsTitles,
     rowIndex: number = 0
   ): Promise<{ Header: string; accessor: string }[]> {
-    const cells: { Header: string; accessor: string }[] = [];
-    const sheet = this._doc.sheetsByTitle[sheetTitle];
-    console.log(sheet.cellStats);
-    if (!sheet.cellStats.loaded) {
-      await sheet.loadCells();
+    try {
+      const cells: { Header: string; accessor: string }[] = [];
+      const sheet = this._doc.sheetsByTitle[sheetTitle];
+      console.log(sheet.cellStats);
+      if (!sheet.cellStats.loaded) {
+        await sheet.loadCells();
+      }
+      const columnsCount: number = SheetsColumns[sheetTitle];
+      for (let cellIndex = 0; cellIndex < columnsCount; cellIndex++) {
+        const cell = sheet.getCell(rowIndex, cellIndex);
+        cells[cellIndex] = {
+          Header: cell.formattedValue,
+          accessor: cell.formattedValue,
+        };
+      }
+      return cells;
+    } catch (err) {
+      console.error(err);
+      return [];
     }
-    const columnsCount: number = SheetsColumns[sheetTitle];
-    for (let cellIndex = 0; cellIndex < columnsCount; cellIndex++) {
-      const cell = sheet.getCell(rowIndex, cellIndex);
-      cells[cellIndex] = {
-        Header: cell.formattedValue,
-        accessor: cell.formattedValue,
-      };
-    }
-    return cells;
   }
 
   async getHorizontalRowsandColumnByTitle(

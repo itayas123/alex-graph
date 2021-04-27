@@ -10,7 +10,6 @@ const googleSheetsService: GoogleSheetsService = new GoogleSheetsService();
 function App() {
   const [loadingCount, setLoadingCount] = useState(0);
   const isLoading = loadingCount < 5;
-  console.log(loadingCount);
 
   useEffect(() => {
     const initSheets = async () => {
