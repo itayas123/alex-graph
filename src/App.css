@@ -29,6 +29,8 @@
   max-height: 400px !important;
 }
 .total-div .chart-div {
-  margin-top: 30px;
   width: 58%;
+}
+.total-div .chart-div h3 {
+  margin-bottom: 10px;
 }

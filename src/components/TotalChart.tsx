@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
-import { ChartData, ChartType, ChartOptions, Tick } from "chart.js";
+import { ChartData, ChartType, ChartOptions } from "chart.js";
 import GoogleSheetsService from "../services/GoogleSheets.service";
 import { SheetsTitles } from "./Table";
 
@@ -10,7 +10,6 @@ export interface ChartProps {
   setIsLoading: () => any;
   type?: ChartType;
 }
-
 const EXIT_DATE = "Exit Date";
 
 const getValueAsCurrency = (value: any, minimumFractionDigits: number = 2) =>
@@ -22,6 +21,9 @@ const getValueAsCurrency = (value: any, minimumFractionDigits: number = 2) =>
 
 const options: ChartOptions = {
   plugins: {
+    legend: {
+      display: false,
+    },
     tooltip: {
       callbacks: {
         label: function (context: any) {
@@ -90,6 +92,14 @@ const TotalChart: React.SFC<ChartProps> = ({
             backgroundColor: "rgb(55, 179, 115)",
             borderColor: "rgba(55, 179, 115, 0.2)",
           },
+          {
+            type: "line",
+            label: "Line Dataset",
+            data: Array.from({ length: dates.length + 1 }, () => 0),
+            pointRadius: 0,
+            // borderColor: "rgba(73,166,184,255)",
+            // borderDash: [5],
+          },
         ],
       };
       setData(chartData);
@@ -101,7 +111,14 @@ const TotalChart: React.SFC<ChartProps> = ({
 
   return (
     <div className="chart-div">
-      {isLoading ? <></> : <Line data={data} options={options} type={type} />}
+      {isLoading ? (
+        <></>
+      ) : (
+        <div>
+          <h3>Portfolio Performance</h3>
+          <Line data={data} options={options} type={type} />
+        </div>
+      )}
     </div>
   );
 };

@@ -17,9 +17,6 @@
   color: #fff;
   background-color: #292525;
 }
-.ReactTable .rt-tbody .rt-tr:hover {
-  /* border: 1px solid rgba(73, 179, 255, 0.4); */
-}
 .ReactTable .rt-tbody .rt-tr:hover .actions {
   opacity: 1 !important;
 }
